@@ -4,6 +4,7 @@ using ITIAcademy.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ITIAcademy.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240930200956_InsertCourses")]
+    partial class InsertCourses
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -107,68 +110,6 @@ namespace ITIAcademy.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Instructors", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            FName = "Ahmed",
-                            LName = "Abdullah"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            FName = "Yasmeen",
-                            LName = "Mohamed"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            FName = "Khalid",
-                            LName = "Hassan"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            FName = "Nadia",
-                            LName = "Ali"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            FName = "Aya",
-                            LName = "Abdullah"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            FName = "Ahmed",
-                            LName = "Atef"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            FName = "ALi",
-                            LName = "Saad"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            FName = "Essam",
-                            LName = "Abo"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            FName = "Hamza",
-                            LName = "Ahmed"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            FName = "Malak",
-                            LName = "Samir"
-                        });
                 });
 
             modelBuilder.Entity("ITIAcademy.Models.Schedule", b =>

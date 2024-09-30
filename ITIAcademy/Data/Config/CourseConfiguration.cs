@@ -15,7 +15,27 @@ namespace ITIAcademy.Data.Config
                 .HasColumnType("VARCHAR")
                 .HasMaxLength(50).IsRequired();
 
+            builder.HasData(LoadInstructors());
+
             builder.ToTable("Courses");
+        }
+
+        private static List<Course> LoadInstructors()
+        {
+            return new List<Course>
+            {
+                new Course {Id = 1 , CourseName="Introduction to Computer Science" },
+                new Course {Id = 2 , CourseName="Web Development Fundamentals" },
+                new Course {Id = 3 , CourseName="Artificial Intelligence" },
+                new Course {Id = 4 , CourseName="Machine Learning Techniques" },
+                new Course {Id = 5 , CourseName="Software Engineering Principles" },
+                new Course {Id = 6 , CourseName="Cybersecurity Basics" },
+                new Course {Id = 7 , CourseName="Cloud Computing with Azure" },
+                new Course {Id = 8 , CourseName="Database Management Systems" },
+                new Course {Id = 9 , CourseName="Data Structures and Algorithms" },
+                new Course {Id = 10 , CourseName="Mobile App Development with Flutter" },
+            };
+        
         }
     }
 }
