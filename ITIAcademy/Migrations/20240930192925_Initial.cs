@@ -54,19 +54,6 @@ namespace ITIAcademy.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Students",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false),
-                    FName = table.Column<string>(type: "VARCHAR(50)", maxLength: 50, nullable: false),
-                    LName = table.Column<string>(type: "VARCHAR(50)", maxLength: 50, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Students", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Sections",
                 columns: table => new
                 {
@@ -89,7 +76,8 @@ namespace ITIAcademy.Migrations
                         name: "FK_Sections_Instructors_InstructorId",
                         column: x => x.InstructorId,
                         principalTable: "Instructors",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_Sections_Schedules_ScheduleId",
                         column: x => x.ScheduleId,
@@ -99,33 +87,24 @@ namespace ITIAcademy.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Enrollments",
+                name: "Students",
                 columns: table => new
                 {
-                    StudentId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    FName = table.Column<string>(type: "VARCHAR(50)", maxLength: 50, nullable: false),
+                    LName = table.Column<string>(type: "VARCHAR(50)", maxLength: 50, nullable: false),
                     SectionId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Enrollments", x => new { x.StudentId, x.SectionId });
+                    table.PrimaryKey("PK_Students", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Enrollments_Sections_SectionId",
+                        name: "FK_Students_Sections_SectionId",
                         column: x => x.SectionId,
                         principalTable: "Sections",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Enrollments_Students_StudentId",
-                        column: x => x.StudentId,
-                        principalTable: "Students",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Enrollments_SectionId",
-                table: "Enrollments",
-                column: "SectionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Sections_CourseId",
@@ -141,19 +120,21 @@ namespace ITIAcademy.Migrations
                 name: "IX_Sections_ScheduleId",
                 table: "Sections",
                 column: "ScheduleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Students_SectionId",
+                table: "Students",
+                column: "SectionId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Enrollments");
+                name: "Students");
 
             migrationBuilder.DropTable(
                 name: "Sections");
-
-            migrationBuilder.DropTable(
-                name: "Students");
 
             migrationBuilder.DropTable(
                 name: "Courses");

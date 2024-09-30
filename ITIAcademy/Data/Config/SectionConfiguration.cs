@@ -31,8 +31,9 @@ namespace ITIAcademy.Data.Config
                 .IsRequired();
 
             builder.HasMany(x => x.Students)
-                .WithMany(x => x.Sections)
-                .UsingEntity<Enrollment>();
+                .WithOne(x => x.Section)
+                .HasForeignKey(x => x.SectionId)
+                .IsRequired();
 
             builder.ToTable("Sections");
         }

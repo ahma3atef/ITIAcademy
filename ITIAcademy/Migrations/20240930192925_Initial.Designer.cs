@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ITIAcademy.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240930184706_Initial")]
+    [Migration("20240930192925_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -38,21 +38,6 @@ namespace ITIAcademy.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Courses", (string)null);
-                });
-
-            modelBuilder.Entity("ITIAcademy.Models.Enrollment", b =>
-                {
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SectionId")
-                        .HasColumnType("int");
-
-                    b.HasKey("StudentId", "SectionId");
-
-                    b.HasIndex("SectionId");
-
-                    b.ToTable("Enrollments", (string)null);
                 });
 
             modelBuilder.Entity("ITIAcademy.Models.Instructor", b =>
@@ -111,13 +96,15 @@ namespace ITIAcademy.Migrations
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
-                    b.Property<int>("CourseId")
+                    b.Property<int?>("CourseId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int?>("InstructorId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ScheduleId")
+                    b.Property<int?>("ScheduleId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("SectionName")
@@ -151,28 +138,14 @@ namespace ITIAcademy.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("VARCHAR");
 
+                    b.Property<int>("SectionId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("SectionId");
+
                     b.ToTable("Students", (string)null);
-                });
-
-            modelBuilder.Entity("ITIAcademy.Models.Enrollment", b =>
-                {
-                    b.HasOne("ITIAcademy.Models.Section", "Sections")
-                        .WithMany()
-                        .HasForeignKey("SectionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ITIAcademy.Models.Student", "Students")
-                        .WithMany()
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Sections");
-
-                    b.Navigation("Students");
                 });
 
             modelBuilder.Entity("ITIAcademy.Models.Section", b =>
@@ -200,6 +173,17 @@ namespace ITIAcademy.Migrations
                     b.Navigation("Schedule");
                 });
 
+            modelBuilder.Entity("ITIAcademy.Models.Student", b =>
+                {
+                    b.HasOne("ITIAcademy.Models.Section", "Section")
+                        .WithMany("Students")
+                        .HasForeignKey("SectionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Section");
+                });
+
             modelBuilder.Entity("ITIAcademy.Models.Course", b =>
                 {
                     b.Navigation("Sections");
@@ -213,6 +197,11 @@ namespace ITIAcademy.Migrations
             modelBuilder.Entity("ITIAcademy.Models.Schedule", b =>
                 {
                     b.Navigation("Sections");
+                });
+
+            modelBuilder.Entity("ITIAcademy.Models.Section", b =>
+                {
+                    b.Navigation("Students");
                 });
 #pragma warning restore 612, 618
         }
