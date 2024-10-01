@@ -20,7 +20,6 @@ namespace ITIAcademy.Data.Config
                 .HasMaxLength(50).IsRequired();
 
             builder.HasData(LoadInstructors());
-
             builder.ToTable("Instructors");
         }
 
