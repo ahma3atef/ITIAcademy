@@ -1,0 +1,42 @@
+﻿@model List<Section>
+
+<a class="btn btn-primary" href="/Section/GoToAddForm/" role="button">Add New Section</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">SectionName</th>
+            <th scope="col">Course Id</th>
+            <th scope="col">Schedule Id</th>
+            <th scope="col">Instructor Id</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+            <th scope="col">Details</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">@item.Id</th>
+                <td>@item.SectionName</td>
+                <td>@item.CourseId</td>
+                <td>@item.ScheduleId</td>
+                <td>@item.InstructorId</td>
+
+                <td>
+                    <a class="btn btn-primary" href="/Section/GoToEditForm/@item.Id">Edit</a>
+                </td>
+                <td>
+                    <a class="btn btn-primary" href="/Section/Delete/@item.Id">Delete</a>
+                </td>
+                <td>
+                    <a class="btn btn-primary" href="/Section/GetById/@item.Id">MoreDetails</a>
+                </td>
+
+            </tr>
+        }
+
+
+    </tbody>
+</table>

@@ -1,0 +1,50 @@
+﻿@model List<Schedule>
+
+<a class="btn btn-primary" href="/Schedule/GoToAddForm/" role="button">Add New Schedule</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Title</th>
+            <th scope="col">SUN</th>
+            <th scope="col">MON</th>
+            <th scope="col">TUE</th>
+            <th scope="col">WED</th>
+            <th scope="col">THU</th>
+            <th scope="col">FRI</th>
+            <th scope="col">SAT</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+            <th scope="col">Details</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">@item.Id</th>
+                <td>@item.Title</td>
+                <td>@item.SUN</td>
+                <td>@item.MON</td>
+                <td>@item.TUE</td>
+                <td>@item.WED</td>
+                <td>@item.THU</td>
+                <td>@item.FRI</td>
+                <td>@item.SAT</td>
+                <td>
+                    <a class="btn btn-primary" href="/Schedule/GoToEditForm/@item.Id">Edit</a>
+                </td>
+                <td>
+                    <a class="btn btn-primary" href="/Schedule/Delete/@item.Id">Delete</a>
+                </td>
+                <td>
+                    <a class="btn btn-primary" href="/Schedule/GetById/@item.Id">MoreDetails</a>
+                </td>
+
+            </tr>
+        }
+
+
+    </tbody>
+</table>

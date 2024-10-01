@@ -9,6 +9,4 @@ namespace ITIAcademy.Controllers
             return View();
         }
     }
-
-
 }

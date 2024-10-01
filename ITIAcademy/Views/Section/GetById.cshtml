@@ -1,0 +1,12 @@
+﻿@model Section
+
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Id</h5>
+        <h6 class="card-subtitle mb-2 text-muted">@Model.SectionName</h6>
+        <h6 class="card-subtitle mb-2 text-muted">@Model.CourseId</h6>
+        <h6 class="card-subtitle mb-2 text-muted">@Model.ScheduleId</h6>
+        <h6 class="card-subtitle mb-2 text-muted">@Model.InstructorId</h6>
+        <a class="btn btn-primary" href="/Section/GetAll">Back To List</a>
+    </div>
+</div>

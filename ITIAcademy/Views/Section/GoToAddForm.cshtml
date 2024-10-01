@@ -1,0 +1,51 @@
+﻿<form action="/Section/SaveFormData">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputEmail4">Id</label>
+            <input type="number" class="form-control" name="Id" id="Id" placeholder="Id">
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for="inputEmail4">Section Name</label>
+            <input type="text" class="form-control" name="SectionName" id="SectionName" placeholder="Name">
+        </div>
+
+        <div class="mb-3">
+            <label for="Section" class="form-label">Course Id</label>
+            <br /><br />
+            <select id="Section" name="CourseId" class="form-select">
+                @foreach (Course item in ViewBag.Courses)
+                {
+                    <option value="@item.Id" selected>@item.CourseName</option>
+                }
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="Section" class="form-label">Schedule Id</label>
+            <br /><br />
+            <select id="Section" name="ScheduleId" class="form-select">
+                @foreach (Schedule item in ViewBag.Schedules)
+                {
+                    <option value="@item.Id" selected>@item.Title</option>
+                }
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="Section" class="form-label">Instructor Id</label>
+            <br /><br />
+            <select id="Section" name="InstructorId" class="form-select">
+                @foreach (Instructor item in ViewBag.Instructors)
+                {
+                    <option value="@item.Id" selected>@item.FName &nbsp @item.LName</option>
+                }
+            </select>
+        </div>
+
+    </div>
+
+
+
+    <button type="submit" class="btn btn-primary">Add</button>
+</form>

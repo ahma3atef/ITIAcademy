@@ -1,0 +1,73 @@
+﻿
+<form action="/Schedule/SaveFormData">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputEmail4">Id</label>
+            <input type="number" class="form-control" name="Id" id="Id" placeholder="Id">
+        </div>
+
+    @*     <div class="form-group col-md-6">
+            <label for="inputEmail4">Title</label>
+            <input type="text" class="form-control" name="Title" id="Title" placeholder="Title">
+        </div> *@
+
+        <div class="mb-3">
+            <label for="schedule" class="form-label">Title</label>
+            <br /><br />
+            <select id="schedule" name="Title" class="form-select">
+                @foreach (Schedule item in ViewBag.schedules)
+                {
+                    <option value="@item.Title" selected>@item.Title</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-check">
+            <input class="form-check-input" name="SUN" type="checkbox" value="True" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+                SUN
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" name="MON" type="checkbox" value="True" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+                MON
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" name="TUE" type="checkbox" value="True" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+                TUE
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" name="WED" type="checkbox" value="True" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+                WED
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" name="THU" type="checkbox" value="True" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+                THU
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" name="FRI" type="checkbox" value="True" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+                FRI
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" name="SAT" type="checkbox" value="True" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+                SAT
+            </label>
+        </div>
+        
+    </div>
+
+
+
+    <button type="submit" class="btn btn-primary">Add</button>
+</form>
