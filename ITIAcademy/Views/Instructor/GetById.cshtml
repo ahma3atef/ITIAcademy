@@ -1,0 +1,13 @@
+﻿@model Instructor
+<div class="card" style="width: 18rem;">
+    <div class="card-header">
+        Instructor Info
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Id:  &nbsp @Model.Id</li>
+        <li class="list-group-item">FirstName: &nbsp @Model.FName</li>
+        <li class="list-group-item">LastName:  &nbsp  @Model.LName</li>
+
+        <a class="btn btn-primary" href="/Instructor/GetAll" >Back To List</a>
+    </ul>
+</div>

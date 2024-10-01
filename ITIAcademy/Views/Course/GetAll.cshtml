@@ -1,5 +1,5 @@
 ﻿@model List<Course>
-
+<a class="btn btn-primary" href="/Course/GoToAddForm/" role="button">Add New Course</a>
 <table class="table">
     <thead>
         <tr>
@@ -8,6 +8,7 @@
 
             <th scope="col">Edit</th>
             <th scope="col">Delete</th>
+            <th scope="col">Details</th>
 
         </tr>
     </thead>
@@ -19,10 +20,13 @@
                 <td>@item.CourseName</td>
 
                 <td>
-                    <a href="/Course/GoToEditForm/@item.Id">Edit</a>
+                    <a class="btn btn-primary" href="/Course/GoToEditForm/@item.Id">Edit</a>
                 </td>
                 <td>
-                    <a href="/Course/Delete/@item.Id">Delete</a>
+                    <a class="btn btn-primary" href="/Course/Delete/@item.Id">Delete</a>
+                </td>
+                <td>
+                    <a class="btn btn-primary" href="/Course/GetById/@item.Id">MoreDetails</a>
                 </td>
 
             </tr>

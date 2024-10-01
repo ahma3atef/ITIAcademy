@@ -1,0 +1,39 @@
+﻿@model List<Instructor>
+<a class="btn btn-primary" href="/Instructor/GoToAddForm/" role="button">Add New Instructor</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">FirstName</th>
+            <th scope="col">LastName</th>
+
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+            <th scope="col">Details</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">@item.Id</th>
+                <td>@item.FName</td>
+                <td>@item.LName</td>
+
+                <td>
+                    <a class="btn btn-primary" href="/Instructor/GoToEditForm/@item.Id">Edit</a>
+                </td>
+                <td>
+                    <a class="btn btn-primary" href="/Instructor/Delete/@item.Id">Delete</a>
+                </td> 
+                <td>
+                    <a class="btn btn-primary" href="/Instructor/GetById/@item.Id">MoreDetails</a>
+                </td> 
+
+            </tr>
+        }
+
+
+    </tbody>
+</table>
