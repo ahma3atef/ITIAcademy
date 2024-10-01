@@ -4,7 +4,15 @@
     <div class="card-body">
         <h5 class="card-title">@Model.Id</h5>
         <h6 class="card-subtitle mb-2 text-muted">@Model.Title</h6>
-
+        <ul>
+            @foreach (var item in ViewBag.Days)
+            {
+                if (item.Value)
+                {
+                    <li>@item.Key &nbsp @item.Value</li>
+                }
+            }
+        </ul>
         <a class="btn btn-primary" href="/Schedule/GetAll">Back To List</a>
 
     </div>

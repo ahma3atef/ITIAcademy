@@ -23,6 +23,18 @@ namespace ITIAcademy.Controllers
         {
             Schedule Schedule = context.Schedules.FirstOrDefault(c => c.Id == id);
 
+            Dictionary<string, bool> days = new Dictionary<string, bool>()
+            {
+                {"SUN", Schedule.SUN },
+                {"MON", Schedule.MON },
+                {"TUE", Schedule.TUE },
+                {"WED", Schedule.WED },
+                {"THU", Schedule.THU },
+                {"FRI", Schedule.FRI },
+                {"SAT", Schedule.SAT }
+            };
+            ViewData["Days"] = days;
+
             return View(Schedule);
         }
 

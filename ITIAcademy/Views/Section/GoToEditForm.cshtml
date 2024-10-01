@@ -8,11 +8,11 @@
 
         <div class="form-group col-md-6">
             <label for="inputEmail4">Section Name</label>
-            <input type="text" class="form-control" name="SectionName" id="SectionName" placeholder="SectionName" value="@Model.CourseName">
+            <input type="text" class="form-control" name="SectionName" id="SectionName" placeholder="SectionName" value="@Model.SectionName">
         </div>
 
         <div class="mb-3">
-            <label for="Section" class="form-label">Course Id</label>
+            <label for="Section" class="form-label">Course Name</label>
             <br /><br />
             <select id="Section" name="CourseId" class="form-select">
                 @foreach (Course item in ViewBag.Courses)
@@ -23,7 +23,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="Section" class="form-label">Schedule Id</label>
+            <label for="Section" class="form-label">Schedule Title</label>
             <br /><br />
             <select id="Section" name="ScheduleId" class="form-select">
                 @foreach (Schedule item in ViewBag.Schedules)
@@ -34,7 +34,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="Section" class="form-label">Instructor Id</label>
+            <label for="Section" class="form-label">Instructor Name</label>
             <br /><br />
             <select id="Section" name="InstructorId" class="form-select">
                 @foreach (Instructor item in ViewBag.Instructors)

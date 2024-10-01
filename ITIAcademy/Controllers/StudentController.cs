@@ -31,6 +31,8 @@ namespace ITIAcademy.Controllers
         // /Student/GoToAddForm
         public IActionResult GoToAddForm()
         {
+            List<Section> sections = context.Sections.ToList();
+            ViewData["Sections"] = sections;
             return View();
         }
 
@@ -54,6 +56,8 @@ namespace ITIAcademy.Controllers
         public IActionResult GoToEditForm(int id)
         {
             Student student = context.Students.FirstOrDefault(i => i.Id == id);
+            List<Section> sections = context.Sections.ToList();
+            ViewData["Sections"] = sections;
             return View(student);
         }
         #endregion
