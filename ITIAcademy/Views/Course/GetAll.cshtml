@@ -1,0 +1,33 @@
+﻿@model List<Course>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">CourseName</th>
+
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">@item.Id</th>
+                <td>@item.CourseName</td>
+
+                <td>
+                    <a href="/Course/GoToEditForm/@item.Id">Edit</a>
+                </td>
+                <td>
+                    <a href="/Course/Delete/@item.Id">Delete</a>
+                </td>
+
+            </tr>
+        }
+
+
+    </tbody>
+</table>
