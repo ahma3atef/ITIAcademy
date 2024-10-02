@@ -1,15 +1,21 @@
 ﻿@model Course
-<form action="/Course/SaveEditFormData">
+<form asp-action="SaveEditFormData" asp-controller="Course">
     <div class="form-row">
         <div class="form-group col-md-6">
-            <label for="inputEmail4">Id</label>
-            <input type="number" class="form-control" name="Id" id="Dnumber" placeholder="Id" value="@Model.Id">
-        </div>
+            <label asp-for="Id">Id</label>
+            <input type="number" class="form-control" asp-for="Id" placeholder="Id" value="@Model.Id">
+            <span asp-validation-for="Id" class="text-danger"></span>
 
+        </div>
         <div class="form-group col-md-6">
-            <label for="inputEmail4">Course Name</label>
-            <input type="text" class="form-control" name="CourseName" id="CourseName" placeholder="CourseName" value="@Model.CourseName">
+            <label asp-for="CourseName">Course Name</label>
+            <input type="text" class="form-control" asp-for="CourseName" placeholder="Name" value="@Model.CourseName">
+            <span asp-validation-for="CourseName" class="text-danger"></span>
+
         </div>
     </div>
-    <button type="submit" class="btn btn-primary">Edit</button>
+    <button type="submit" class="btn btn-primary">Add</button>
 </form>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

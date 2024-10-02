@@ -1,23 +1,30 @@
-﻿<form action="/Student/SaveFormData">
+﻿ @model Student
+<form asp-action="SaveFormData" asp-controller="Student">
     <div class="form-row">
         <div class="form-group col-md-6">
             <div class="form-group col-md-6">
-                <label for="inputEmail4">Id</label>
-                <input type="number" class="form-control" name="Id" id="Id" placeholder="Id">
+                <label asp-for="Id">Id</label>
+                <input type="number" class="form-control" asp-for=Id placeholder="Id">
+                <span asp-validation-for="Id" class="text-danger"></span>
             </div>
 
             <div class="form-group col-md-6">
-                <label for="inputEmail4">FirstName</label>
-                <input type="text" class="form-control" name="FName" id="FName" placeholder="FName">
+                <label asp-for="FName">FirstName</label>
+                <input type="text" class="form-control" asp-for="FName" placeholder="FName">
+                <span asp-validation-for="FName" class="text-danger"></span>
+
+
             </div>
 
             <div class="form-group col-md-6">
-                <label for="inputEmail4">LastName</label>
-                <input type="text" class="form-control" name="LName" id="Lame" placeholder="LName">
+                <label asp-for="LName">LastName</label>
+                <input type="text" class="form-control" asp-for="LName" placeholder="LName">
+                <span asp-validation-for="LName" class="text-danger"></span>
             </div>
+
             <div class="mb-3">
                 <label for="Student" class="form-label">Section Name</label>
-                <br/>
+                <br />
                 <select id="Student" name="SectionId" class="form-select">
                     @foreach (Section item in ViewBag.Sections)
                     {
@@ -29,3 +36,7 @@
     </div>
     <button type="submit" class="btn btn-primary">Add</button>
 </form>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
