@@ -1,3 +1,8 @@
+using ITIAcademy.Data;
+using ITIAcademy.Interfaces;
+using ITIAcademy.Servcies;
+using Microsoft.EntityFrameworkCore;
+
 namespace ITIAcademy
 {
     public class Program
@@ -8,6 +13,15 @@ namespace ITIAcademy
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddDbContext<AppDbContext>(options =>
+            options.UseSqlServer("Server = .\\SQLEXPRESS; Database = ITIAcademy; Integrated Security = SSPI; TrustServerCertificate = True"));
+
+            builder.Services.AddScoped<ICourseService, CourseService>();
+            builder.Services.AddScoped<IInstructorService, InstructorService>();
+            builder.Services.AddScoped<IScheduleService, ScheduleService>();
+            builder.Services.AddScoped<ISectionService, SectionService>();
+            builder.Services.AddScoped<IStudentService, StudentService>();
 
             var app = builder.Build();
 

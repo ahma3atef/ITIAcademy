@@ -1,4 +1,5 @@
 ﻿using ITIAcademy.Data;
+using ITIAcademy.Interfaces;
 using ITIAcademy.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,40 +7,38 @@ namespace ITIAcademy.Controllers
 {
     public class StudentController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
-        AppDbContext context = new AppDbContext();
+        private readonly IStudentService _studentService;
+        private readonly ISectionService _sectionService;
 
+        public StudentController(IStudentService studentService, ISectionService sectionService)
+        {
+            _studentService = studentService;
+            _sectionService = sectionService;
+        }
+    
         // /Student/GetAll
         public IActionResult GetAll()
         {
-            List<Student> students = context.Students.ToList();
-            return View(students);
+            return View(_studentService.GetAll());
         }
 
         // /Student/GetById/1
         public IActionResult GetById(int id)
         {
-            Student student = context.Students.FirstOrDefault(i => i.Id == id);
-            return View(student);
+            return View(_studentService.GetById(id));
         }
-
 
         #region InsertNewStudent
         // /Student/GoToAddForm
         public IActionResult GoToAddForm()
         {
-            List<Section> sections = context.Sections.ToList();
-            ViewData["Sections"] = sections;
+            ViewData["Sections"] = _sectionService.GetAll();
             return View();
         }
 
         public IActionResult SaveFormData(Student student)
         {
-            context.Students.Add(student);
-            context.SaveChanges();
+            _studentService.Add(student);
             return RedirectToAction("GetAll");
         }
         #endregion
@@ -47,27 +46,22 @@ namespace ITIAcademy.Controllers
         #region EditStudent
         public IActionResult SaveEditFormData(Student student)
         {
-            context.Students.Update(student);
-            context.SaveChanges();
+            _studentService.Edit(student);
             return RedirectToAction("GetAll");
         }
 
         // /Student/GoToEditForm/1
         public IActionResult GoToEditForm(int id)
         {
-            Student student = context.Students.FirstOrDefault(i => i.Id == id);
-            List<Section> sections = context.Sections.ToList();
-            ViewData["Sections"] = sections;
-            return View(student);
+            ViewData["Sections"] = _sectionService.GetAll();
+            return View(_studentService.GetById(id));
         }
         #endregion
 
         #region DeleteStudent
         public IActionResult Delete(int id)
         {
-            Student student = context.Students.FirstOrDefault(e => e.Id == id);
-            context.Students.Remove(student);
-            context.SaveChanges();
+           _sectionService.Delete(id);
             return RedirectToAction("GetAll");
         }
         #endregion

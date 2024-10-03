@@ -1,4 +1,5 @@
 ﻿using ITIAcademy.Data;
+using ITIAcademy.Interfaces;
 using ITIAcademy.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,22 +7,28 @@ namespace ITIAcademy.Controllers
 {
     public class ScheduleController : Controller
     {
+        private readonly IScheduleService _scheduleService;
+
+        public ScheduleController(IScheduleService scheduleService)
+        {
+            _scheduleService = scheduleService;
+        }
+
         public IActionResult Index()
         {
             return View();
         }
-        AppDbContext context = new AppDbContext();
+
 
         public IActionResult GetAll()
         {
-            List<Schedule> schedules = context.Schedules.ToList();
-            return View(schedules);
+            return View(_scheduleService.GetAll());
         }
 
         // /Course/GetById/1
         public IActionResult GetById(int id)
         {
-            Schedule Schedule = context.Schedules.FirstOrDefault(c => c.Id == id);
+            Schedule Schedule = _scheduleService.GetById(id);
 
             Dictionary<string, bool> days = new Dictionary<string, bool>()
             {
@@ -42,15 +49,13 @@ namespace ITIAcademy.Controllers
         // /Schedule/GoToAddForm
         public IActionResult GoToAddForm()
         {
-            List<Schedule> schedules = context.Schedules.ToList();
-            ViewData["schedules"] = schedules;
+            ViewData["schedules"] = _scheduleService.GetAll();
             return View();
         }
 
         public IActionResult SaveFormData(Schedule schedule)
         {
-            context.Schedules.Add(schedule);
-            context.SaveChanges();
+            _scheduleService.Add(schedule);
             return RedirectToAction("GetAll");
         }
         #endregion
@@ -58,27 +63,22 @@ namespace ITIAcademy.Controllers
         #region EditSchedule
         public IActionResult SaveEditFormData(Schedule schedule)
         {
-            context.Schedules.Update(schedule);
-            context.SaveChanges();
+            _scheduleService.Add(schedule);
             return RedirectToAction("GetAll");
         }
 
         // /Schedule/GoToEditForm/1
         public IActionResult GoToEditForm(int id)
         {
-            Schedule schedule = context.Schedules.FirstOrDefault(e => e.Id == id);
-            List<Schedule> schedules = context.Schedules.ToList();
-            ViewData["schedules"] = schedules;
-            return View(schedule);
+            ViewData["schedules"] = _scheduleService.GetAll();
+            return View(_scheduleService.GetById(id));
         }
         #endregion
 
         #region DeleteSchedule
         public IActionResult Delete(int id)
         {
-            Schedule Schedule = context.Schedules.FirstOrDefault(e => e.Id == id);
-            context.Schedules.Remove(Schedule);
-            context.SaveChanges();
+            _scheduleService.Delete(id);
             return RedirectToAction("GetAll");
         }
         #endregion

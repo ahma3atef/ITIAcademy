@@ -1,4 +1,5 @@
 ﻿using ITIAcademy.Data;
+using ITIAcademy.Interfaces;
 using ITIAcademy.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,27 +7,29 @@ namespace ITIAcademy.Controllers
 {
     public class InstructorController : Controller
     {
+        private readonly IInstructorService _instructorService;
+
+        public InstructorController(IInstructorService instructorService)
+        {
+            _instructorService = instructorService;
+        }
+
         public IActionResult Index()
         {
             return View();
         }
 
-        AppDbContext context = new AppDbContext();
-
         // /Instructor/GetAll
         public IActionResult GetAll()
         {
-            List<Instructor> instructors = context.Instructors.ToList();
-            return View(instructors);
+            return View(_instructorService.GetAll());
         }
 
         // /Instructor/GetById/1
         public IActionResult GetById(int id)
         {
-           Instructor instructor = context.Instructors.FirstOrDefault(i=>i.Id==id);
-            return View(instructor);
+            return View(_instructorService.GetById(id));
         }
-
 
         #region InsertNewInstructor
         // /instructor/GoToAddForm
@@ -37,8 +40,7 @@ namespace ITIAcademy.Controllers
 
         public IActionResult SaveFormData(Instructor instructor)
         {
-            context.Instructors.Add(instructor);
-            context.SaveChanges();
+            _instructorService.Add(instructor);
             return RedirectToAction("GetAll");
         }
         #endregion
@@ -46,25 +48,21 @@ namespace ITIAcademy.Controllers
         #region EditInstructor
         public IActionResult SaveEditFormData(Instructor instructor)
         {
-            context.Instructors.Update(instructor);
-            context.SaveChanges();
+            _instructorService.Edit(instructor);
             return RedirectToAction("GetAll");
         }
 
         // /Instructor/GoToEditForm/1
         public IActionResult GoToEditForm(int id)
         {
-          Instructor instructor = context.Instructors.FirstOrDefault(i => i.Id == id);
-          return View(instructor);
+            return View(_instructorService.GetById(id));
         }
         #endregion
 
         #region DeleteInstructor
         public IActionResult Delete(int id)
         {
-            Instructor instructor = context.Instructors.FirstOrDefault(e => e.Id == id);
-            context.Instructors.Remove(instructor);
-            context.SaveChanges();
+            _instructorService.Delete(id);
             return RedirectToAction("GetAll");
         }
         #endregion

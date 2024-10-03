@@ -10,7 +10,16 @@ namespace ITIAcademy.Data
         public DbSet<Section> Sections { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
         public DbSet<Student> Students { get; set; }
+        public AppDbContext()
+        {
+            
+        }
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        {
+            
+        }
 
+        
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

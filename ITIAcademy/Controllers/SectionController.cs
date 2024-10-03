@@ -1,4 +1,5 @@
 ﻿using ITIAcademy.Data;
+using ITIAcademy.Interfaces;
 using ITIAcademy.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,44 +7,44 @@ namespace ITIAcademy.Controllers
 {
     public class SectionController : Controller
     {
-        public IActionResult Index()
+        private readonly ISectionService _sectionService;
+        private readonly ICourseService _courseService;
+        private readonly IScheduleService _scheduleService;
+        private readonly IInstructorService _instructorService;
+
+        public SectionController(ISectionService sectionService, ICourseService courseService,
+            IScheduleService scheduleService, IInstructorService instructorService)
         {
-            return View();
+            _sectionService = sectionService;
+            _courseService = courseService;
+            _scheduleService = scheduleService;
+            _instructorService = instructorService;
         }
-
-        AppDbContext context = new AppDbContext();
-
+        
         // /Section/GetAll
         public IActionResult GetAll()
         {
-            List<Section> section = context.Sections.ToList();
-            return View(section);
+            return View(_sectionService.GetAll());
         }
         // /Section/GetById/1
         public IActionResult GetById(int id)
         {
-            Section Section = context.Sections.FirstOrDefault(c => c.Id == id);
-            return View(Section);
+            return View(_sectionService.GetById(id));
         }
-
 
         #region InsertNewSection
         // /Section/GoToAddForm
         public IActionResult GoToAddForm()
         {
-            List<Course> courses = context.Courses.ToList();
-            ViewData["Courses"] = courses;
-            List<Schedule> schedules = context.Schedules.ToList();
-            ViewData["Schedules"] = schedules;
-            List<Instructor> instructors = context.Instructors.ToList();
-            ViewData["Instructors"] = instructors;
+            ViewData["Courses"] = _courseService.GetAll();
+            ViewData["Schedules"] = _scheduleService.GetAll();
+            ViewData["Instructors"] = _instructorService.GetAll();
             return View();
         }
 
         public IActionResult SaveFormData(Section Section)
         {
-            context.Sections.Add(Section);
-            context.SaveChanges();
+            _sectionService.Add(Section);
             return RedirectToAction("GetAll");
         }
         #endregion
@@ -51,32 +52,23 @@ namespace ITIAcademy.Controllers
         #region EditCourse
         public IActionResult SaveEditFormData(Section section)
         {
-            context.Sections.Update(section);
-            context.SaveChanges();
+            _sectionService.Edit(section);
             return RedirectToAction("GetAll");
         }
         // /Section/GoToEditForm/1
         public IActionResult GoToEditForm(int id)
         {
-            Section section = context.Sections.FirstOrDefault(e => e.Id == id);
-
-            List<Course> courses = context.Courses.ToList();
-            ViewData["Courses"] = courses;
-            List<Schedule> schedules = context.Schedules.ToList();
-            ViewData["Schedules"] = schedules;
-            List<Instructor> instructors = context.Instructors.ToList();
-            ViewData["Instructors"] = instructors;
-
-            return View(section);
+            ViewData["Courses"] = _courseService.GetAll();
+            ViewData["Schedules"] = _scheduleService.GetAll();
+            ViewData["Instructors"] = _instructorService.GetAll();
+            return View(_sectionService.GetById(id));
         }
         #endregion
 
         #region DeleteScetion
         public IActionResult Delete(int id)
         {
-            Section section = context.Sections.FirstOrDefault(e => e.Id == id);
-            context.Sections.Remove(section);
-            context.SaveChanges();
+            _sectionService.Delete(id);
             return RedirectToAction("GetAll");
         }
         #endregion
