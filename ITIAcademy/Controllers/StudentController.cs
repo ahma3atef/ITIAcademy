@@ -61,7 +61,7 @@ namespace ITIAcademy.Controllers
         #region DeleteStudent
         public IActionResult Delete(int id)
         {
-           _sectionService.Delete(id);
+            _studentService.Delete(id);
             return RedirectToAction("GetAll");
         }
         #endregion
